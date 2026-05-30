@@ -1,0 +1,405 @@
+{
+  "info": {
+    "name": "Beer Catalogue API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Manufacturers",
+      "item": [
+        {
+          "name": "Get all manufacturers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/manufacturers?page=0&size=20&sort=name,asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "manufacturers"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "20" },
+                { "key": "sort", "value": "name,asc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get all manufacturers (filter by name)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/manufacturers?name=heine",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "manufacturers"],
+              "query": [
+                { "key": "name", "value": "heine" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get manufacturer by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/manufacturers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "manufacturers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create manufacturer (Admin)",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "admin" },
+                { "key": "password", "value": "admin123" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Corona\",\n  \"country\": \"Mexico\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/manufacturers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "manufacturers"]
+            }
+          }
+        },
+        {
+          "name": "Update manufacturer (Admin)",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "admin" },
+                { "key": "password", "value": "admin123" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Corona Updated\",\n  \"country\": \"Mexico\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/manufacturers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "manufacturers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update own manufacturer (Manufacturer user)",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "heineken_user" },
+                { "key": "password", "value": "heineken123" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Heineken\",\n  \"country\": \"Netherlands\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/manufacturers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "manufacturers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update another manufacturer (Manufacturer user - 403)",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "heineken_user" },
+                { "key": "password", "value": "heineken123" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Guinness\",\n  \"country\": \"Ireland\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/manufacturers/2",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "manufacturers", "2"]
+            }
+          }
+        },
+        {
+          "name": "Delete manufacturer (Admin)",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "admin" },
+                { "key": "password", "value": "admin123" }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/manufacturers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "manufacturers", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Beers",
+      "item": [
+        {
+          "name": "Get all beers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers?page=0&size=20&sort=name,asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "20" },
+                { "key": "sort", "value": "name,asc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get beer by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Search beers by name",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers/search?name=heineken",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers", "search"],
+              "query": [
+                { "key": "name", "value": "heineken" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search beers by type",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers/search?type=STOUT",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers", "search"],
+              "query": [
+                { "key": "type", "value": "STOUT" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search beers by ABV range",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers/search?minAbv=4.0&maxAbv=5.5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers", "search"],
+              "query": [
+                { "key": "minAbv", "value": "4.0" },
+                { "key": "maxAbv", "value": "5.5" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search beers combined filters",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers/search?type=LAGER&minAbv=4.0&manufacturerId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers", "search"],
+              "query": [
+                { "key": "type", "value": "LAGER" },
+                { "key": "minAbv", "value": "4.0" },
+                { "key": "manufacturerId", "value": "1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create beer (Admin)",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "admin" },
+                { "key": "password", "value": "admin123" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Heineken Zero\",\n  \"abv\": 0.0,\n  \"type\": \"LAGER\",\n  \"description\": \"Non-alcoholic lager\",\n  \"manufacturerId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers"]
+            }
+          }
+        },
+        {
+          "name": "Create beer (Manufacturer - own)",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "heineken_user" },
+                { "key": "password", "value": "heineken123" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Heineken Dark\",\n  \"abv\": 5.0,\n  \"type\": \"ALE\",\n  \"description\": \"A darker version\",\n  \"manufacturerId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers"]
+            }
+          }
+        },
+        {
+          "name": "Create beer (Manufacturer - another's manufacturer 403)",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "heineken_user" },
+                { "key": "password", "value": "heineken123" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Guinness Pale\",\n  \"abv\": 4.5,\n  \"type\": \"ALE\",\n  \"description\": \"Should return 403\",\n  \"manufacturerId\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers"]
+            }
+          }
+        },
+        {
+          "name": "Create beer (No auth - 401)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Beer\",\n  \"abv\": 5.0,\n  \"type\": \"IPA\",\n  \"manufacturerId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers"]
+            }
+          }
+        },
+        {
+          "name": "Update beer (Admin)",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "admin" },
+                { "key": "password", "value": "admin123" }
+              ]
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Heineken Lager Updated\",\n  \"abv\": 5.0,\n  \"type\": \"LAGER\",\n  \"description\": \"Updated description\",\n  \"manufacturerId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete beer (Admin)",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "admin" },
+                { "key": "password", "value": "admin123" }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/beers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "beers", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
