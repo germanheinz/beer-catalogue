@@ -28,4 +28,8 @@ public class Manufacturer {
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Beer> beers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "manufacturer")
+    @Builder.Default
+    private List<User> users = new ArrayList<>();
 }
