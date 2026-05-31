@@ -15,12 +15,14 @@ public class UserPrincipal implements UserDetails {
     private final String username;
     private final String password;
     private final Collection<SimpleGrantedAuthority> authorities;
+    private final User user;
 
     private UserPrincipal(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
+        this.user = user;
     }
 
     public static UserPrincipal from(User user) {
