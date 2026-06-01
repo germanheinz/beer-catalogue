@@ -6,7 +6,11 @@ A full-stack application to manage a catalogue of beers and manufacturers. The b
 
 **Requirements:** Java 21, Maven 3.9+, Docker
 
-### Run with Docker (recommended)
+There are two ways to run the project depending on what you want to test:
+
+### Option 1 — Local (dev profile, H2 in-memory database)
+
+No external dependencies needed. Spring Boot starts with the `dev` profile, creates all tables automatically, and seeds sample data (manufacturers, beers, users) on first run.
 
 ```bash
 docker compose up --build
@@ -16,14 +20,22 @@ docker compose up --build
 - Frontend: http://localhost:3000
 - Swagger UI: http://localhost:8080/swagger-ui.html
 
-### Run locally
+### Option 2 — Cloud (prod profile, AWS RDS PostgreSQL)
+
+Requires AWS CLI configured with a `haufe` profile and Rancher Desktop running locally.
+
+```bash
+./scripts/demo-up.sh
+```
+
+This provisions the RDS instance on AWS with Terraform, then deploys both services to the local Kubernetes cluster using the `prod` Spring profile connected to the real database.
+
+### Run locally without Docker
 
 ```bash
 cd backend
 mvn spring-boot:run
 ```
-
-Uses H2 in-memory database by default (dev profile). No extra setup needed.
 
 ### Run tests
 
@@ -44,8 +56,9 @@ mvn test
 
 | Username | Password | Role | Access |
 |----------|----------|------|--------|
-| admin | admin | ADMIN | full access |
-| manufacturer | manufacturer | MANUFACTURER | manage own beers |
+| admin | admin123 | ADMIN | full access |
+| heineken_user | heineken123 | MANUFACTURER | manage Heineken beers only |
+| guinness_user | guinness123 | MANUFACTURER | manage Guinness beers only |
 | _(no auth)_ | | ANONYMOUS | read-only |
 
 Postman collection available in `beer-catalogue.postman_collection.json`.
