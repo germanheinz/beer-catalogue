@@ -1,0 +1,21 @@
+meta {
+  name: Search beers combined filters
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/v1/beers/search?type=LAGER&minAbv=4.0&manufacturerId=1
+  body: none
+  auth: inherit
+}
+
+params:query {
+  type: LAGER
+  minAbv: 4.0
+  manufacturerId: 1
+}
+
+settings {
+  encodeUrl: true
+}

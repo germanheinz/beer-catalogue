@@ -1,0 +1,19 @@
+meta {
+  name: Search beers by name
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/v1/beers/search?name=heineken
+  body: none
+  auth: inherit
+}
+
+params:query {
+  name: heineken
+}
+
+settings {
+  encodeUrl: true
+}

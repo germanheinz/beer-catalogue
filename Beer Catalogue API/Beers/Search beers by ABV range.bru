@@ -1,0 +1,20 @@
+meta {
+  name: Search beers by ABV range
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/v1/beers/search?minAbv=4.0&maxAbv=5.5
+  body: none
+  auth: inherit
+}
+
+params:query {
+  minAbv: 4.0
+  maxAbv: 5.5
+}
+
+settings {
+  encodeUrl: true
+}

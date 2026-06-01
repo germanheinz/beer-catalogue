@@ -1,0 +1,19 @@
+meta {
+  name: Search beers by type
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/v1/beers/search?type=STOUT
+  body: none
+  auth: inherit
+}
+
+params:query {
+  type: STOUT
+}
+
+settings {
+  encodeUrl: true
+}

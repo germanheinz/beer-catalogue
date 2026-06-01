@@ -1,0 +1,31 @@
+meta {
+  name: Update another manufacturer (Manufacturer user - 403)
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{baseUrl}}/api/v1/manufacturers/2
+  body: json
+  auth: basic
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:basic {
+  username: heineken_user
+  password: heineken123
+}
+
+body:json {
+  {
+    "name": "Guinness",
+    "country": "Ireland"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

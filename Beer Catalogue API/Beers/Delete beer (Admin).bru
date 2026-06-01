@@ -1,0 +1,20 @@
+meta {
+  name: Delete beer (Admin)
+  type: http
+  seq: 12
+}
+
+delete {
+  url: {{baseUrl}}/api/v1/beers/1
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: admin
+  password: admin123
+}
+
+settings {
+  encodeUrl: true
+}

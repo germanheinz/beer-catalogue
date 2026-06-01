@@ -1,0 +1,28 @@
+meta {
+  name: Create beer (No auth - 401)
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/api/v1/beers
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Test Beer",
+    "abv": 5.0,
+    "type": "IPA",
+    "manufacturerId": 1
+  }
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Beer Catalogue API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

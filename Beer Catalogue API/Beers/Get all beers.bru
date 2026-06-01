@@ -1,0 +1,21 @@
+meta {
+  name: Get all beers
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/beers?page=0&size=20&sort=name,asc
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 0
+  size: 20
+  sort: name,asc
+}
+
+settings {
+  encodeUrl: true
+}

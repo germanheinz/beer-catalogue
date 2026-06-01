@@ -1,0 +1,31 @@
+meta {
+  name: Update own manufacturer (Manufacturer user)
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/api/v1/manufacturers/1
+  body: json
+  auth: basic
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:basic {
+  username: heineken_user
+  password: heineken123
+}
+
+body:json {
+  {
+    "name": "Heineken",
+    "country": "Netherlands"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
