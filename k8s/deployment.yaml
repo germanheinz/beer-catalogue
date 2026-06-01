@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beer-catalogue-backend
+  namespace: default
+  labels:
+    app: beer-catalogue-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beer-catalogue-backend
+  template:
+    metadata:
+      labels:
+        app: beer-catalogue-backend
+    spec:
+      containers:
+        - name: backend
+          image: gheinz/beer-catalogue-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: beer-catalogue-db-secret
+                  key: DB_URL
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: beer-catalogue-db-secret
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: beer-catalogue-db-secret
+                  key: DB_PASSWORD
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 30
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beer-catalogue-frontend
+  namespace: default
+  labels:
+    app: beer-catalogue-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beer-catalogue-frontend
+  template:
+    metadata:
+      labels:
+        app: beer-catalogue-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: gheinz/beer-catalogue-frontend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BACKEND_URL
+              value: "http://beer-catalogue-backend-svc:8080"
+            - name: NEXT_PUBLIC_API_URL
+              value: "http://beer-catalogue-backend-svc:8080/api/v1"
