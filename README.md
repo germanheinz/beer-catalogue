@@ -1,6 +1,6 @@
 # Beer Catalogue API
 
-REST API to manage a catalogue of beers and manufacturers, built with Java 21 and Spring Boot 3.3.5.
+A full-stack application to manage a catalogue of beers and manufacturers. The backend exposes a REST API built with Java 21 and Spring Boot 3.3.5, secured with role-based access control. The frontend is a Next.js 14 app that consumes the API. Both run locally via Docker Compose or can be deployed to a Kubernetes cluster backed by an AWS RDS PostgreSQL database provisioned with Terraform.
 
 ## Setup
 
@@ -50,10 +50,27 @@ mvn test
 
 Postman collection available in `beer-catalogue.postman_collection.json`.
 
-## Cloud Features
+## Cloud Deployment (AWS + Kubernetes)
+
+Two scripts automate the full cloud setup end-to-end:
+
+```bash
+# Spin up everything: RDS on AWS + deploy to local k8s cluster
+./scripts/demo-up.sh
+
+# Tear down everything when done
+./scripts/demo-down.sh
+```
+
+`demo-up.sh` does the following in order:
+1. Runs `terraform apply` to provision an RDS PostgreSQL 16 instance on AWS (`eu-central-1`)
+2. Reads the RDS endpoint from Terraform output
+3. Creates a Kubernetes Secret with the database credentials (never written to disk)
+4. Deploys backend and frontend to the local cluster (Rancher Desktop)
+5. Waits for pods to be ready and prints the access URLs
+
+`demo-down.sh` removes all Kubernetes resources and runs `terraform destroy`.
 
 **Search & Pagination** — beers and manufacturers support `page`, `size`, `sort` query params. Beers also support filtering by `name`, `type`, `abv`, and `manufacturerId`.
 
-**Cloud Deployment** — Kubernetes manifests in `k8s/` deploy both services to a local cluster (Rancher Desktop). Run `./scripts/demo-up.sh` to provision everything end-to-end.
-
-**AWS-Hosted Database** — Terraform config in `terraform/` provisions an RDS PostgreSQL 16 instance on AWS (`eu-central-1`). Credentials are injected at deploy time via Kubernetes Secrets — nothing hardcoded in the manifests committed to the repo.
+**AWS-Hosted Database** — credentials are injected at deploy time via Kubernetes Secrets — nothing hardcoded in the manifests committed to the repo.
