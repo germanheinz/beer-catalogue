@@ -7,6 +7,7 @@ target/
 # IDE
 .idea/
 *.iml
+out/
 .vscode/
 .settings/
 .classpath

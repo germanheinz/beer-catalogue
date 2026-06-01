@@ -48,7 +48,7 @@ mvn test
 | manufacturer | manufacturer | MANUFACTURER | manage own beers |
 | _(no auth)_ | | ANONYMOUS | read-only |
 
-API collection (Bruno/Postman) available in the `Beer Catalogue API/` folder.
+Postman collection available in `beer-catalogue.postman_collection.json`.
 
 ## Cloud Features
 
